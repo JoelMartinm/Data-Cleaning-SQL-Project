@@ -5,15 +5,15 @@ Welcome to my hands-on SQL data cleaning project! This repository highlights a c
 
 ---
 
-## 🚩 Project Summary
+## Project Summary
 
 Data, in its raw form, is often riddled with duplicates, inconsistent values, and missing fields. This project guides you step-by-step through how I took a messy layoffs dataset and turned it into a trusted, analysis-ready source using only SQL.
 
 ---
 
-## 🔍 Project Workflow
+## Project Workflow
 
-### 1️⃣ Initial Data Review
+### Initial Data Review
 
 - Explored the dataset to understand its structure.
 - Created a **staging table** to avoid corrupting raw data.
@@ -24,7 +24,7 @@ INSERT INTO layoffs_staging SELECT * FROM layoffs;
 
 ---
 
-### 2️⃣ De-duplication
+### De-duplication
 
 - Detected duplicate rows using SQL window functions.
 - Kept only the first occurrence in each duplicate group.
@@ -42,7 +42,7 @@ DELETE FROM layoffs_staging WHERE rn > 1;
 
 ---
 
-### 3️⃣ Text Cleaning & Standardization
+### Text Cleaning & Standardization
 
 - Removed trailing spaces and punctuation.
 - Harmonized industry names (e.g., all forms of "crypto" became "Crypto").
@@ -54,7 +54,7 @@ UPDATE layoffs_staging SET country = TRIM(TRAILING '.' FROM country);
 
 ---
 
-### 4️⃣ Data Type Conversion
+### Data Type Conversion
 
 - Converted `date` fields from string to DATE type for easier analysis.
 ```sql
@@ -64,7 +64,7 @@ ALTER TABLE layoffs_staging MODIFY COLUMN date DATE;
 
 ---
 
-### 5️⃣ Filling & Filtering Missing Data
+### Filling & Filtering Missing Data
 
 - Filled missing industries by joining on company name.
 - Deleted records missing critical values (`total_laid_off` and `percentage_laid_off`).
@@ -79,42 +79,16 @@ DELETE FROM layoffs_staging WHERE total_laid_off IS NULL AND percentage_laid_off
 
 ---
 
-### 6️⃣ Finalization
+### Finalization
 
 - Dropped any temporary columns.
 - The result: a clean, consistent, ready-to-analyze dataset!
 
 ---
 
-## 🧠 Key Takeaways
+## Key Takeaways
 
 - **SQL window functions** are game-changers for data cleaning!
 - Consistency in text data is just as vital as handling numbers.
 - Proactive null management prevents misleading analysis down the road.
-
----
-
-## 🖼️ Screenshots
-
-See the [`screenshots/`](screenshots/) folder for step-by-step visuals of the queries and their results.
-
----
-
-## 🚀 How To Reproduce
-
-1. **Clone the repo**  
-   `git clone https://github.com/YOUR_USERNAME/layoffs-data-cleaning-sql.git`
-2. **Import the SQL script**  
-   Use your favorite SQL tool to run [`DATA CLEANING PROJECT SQL.sql`](./DATA%20CLEANING%20PROJECT%20SQL.sql).
-3. **Run each query** step by step and compare your results with the screenshots provided.
-
----
-
-## 📂 SQL Script
-
-Full workflow in [`DATA CLEANING PROJECT SQL.sql`](./DATA%20CLEANING%20PROJECT%20SQL.sql)
-
----
-
-*Made with 💻 and a lot of patience for messy data! If you have questions, feedback, or suggestions, feel free to open an issue or a pull request.*
 
